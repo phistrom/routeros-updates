@@ -39,9 +39,11 @@ Echo the download URL instead of downloading it.
 
 #### Examples
 Echo the URL for the optional packages for the ARM architecture in the 'stable' channel:
+
 `$ ros-updates url arm --package all`
 
 Echo the URL for the main package for the x86 architecture in the 'testing' channel:
+
 `$ ros-updates --channel testing url x86`
 
 ### Echo Patch Notes
@@ -52,7 +54,9 @@ Echo the patch notes for the given channel.
 
 #### Examples
 Echo patch notes for the 'stable' channel.
+
 `$ ros-updates notes`
 
 Echo patch notes for the 'lts' channel
+
 `$ ros-updates --channel lts notes`

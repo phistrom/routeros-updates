@@ -35,6 +35,12 @@ def cli():
                                       "the main package is downloaded.")
     download_parser.add_argument("-f", "--force", action="store_true",
                                  help="Overwrite existing file")
+    download_parser.add_argument("-m", "--mirror", action="store_true",
+                                 help="Creates a similar directory structure to upgrade.mikrotik.com at the "
+                                      "location specified by --file")
+    download_parser.add_argument("--zip", dest="unzip", action="store_false",
+                                 help="Do NOT unzip the download if it is a zip file.")
+
 
     url_parser = actions.add_parser("url", help="Returns the HTTP download URL for the update")
     url_parser.add_argument("arch", choices=constants.ARCHITECTURES,

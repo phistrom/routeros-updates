@@ -1,4 +1,4 @@
-__VERSION__ = "0.1.0"
+__VERSION__ = "0.2.0"
 
 from .command_line import cli
 from .operations import download_file, get_channel_latest_version, \

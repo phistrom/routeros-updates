@@ -18,10 +18,18 @@ Download the update package for the given architecture (mipsbe, arm, x86, etc.)
 
 #### Examples
 Download latest mipsbe main package from 'stable' channel
+
   `$ ros-updates download mipsbe`
   
 Download latest optional packages zip for ARM from 'long term' channel and put in /tmp folder:
+
   `$ ros-updates --channel lts download arm --file /tmp`
+
+Download latest ARM main package from 'stable' channel and match directory structure from the update site.
+This creates a folder path like **./routeros/6.45.5/routeros-arm-6.45.5.npk**
+
+  `$ ros-updates download arm --mirror`
+
 
 ### Echo URL
 Echo the download URL instead of downloading it.

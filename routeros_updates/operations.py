@@ -90,6 +90,10 @@ def _download_latest_info_file(path, channel, scheme):
     url_path = urlparse(url).path
     url_path = url_path.lstrip("/").replace("/", os.path.sep)
     latest_path = os.path.join(path, url_path)
+    try:
+        os.makedirs(os.path.dirname(latest_path))
+    except (OSError, IOError):
+        pass  # it's ok if the folders exist
     text = _get_http_text_content(url)
     with open(latest_path, "w") as outfile:
         outfile.write(text)

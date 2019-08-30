@@ -95,9 +95,23 @@ def _download_latest_info_file(path, channel, scheme):
     except (OSError, IOError):
         pass  # it's ok if the folders exist
     text = _get_http_text_content(url)
+    text = text.replace("\r\n", "\n")
     with open(latest_path, "w") as outfile:
         outfile.write(text)
     return latest_path
+
+
+def _download_lastest_changelog_file(path, channel, scheme):
+    notes = get_patch_notes(channel, scheme)
+    changelog_file = os.path.join(path, "CHANGELOG")
+    try:
+        os.makedirs(os.path.dirname(changelog_file))
+    except (OSError, IOError):
+        pass  # it's ok if the folders exist
+    notes = notes.replace("\r\n", "\n")
+    with open(changelog_file, 'w') as outfile:
+        outfile.write(notes)
+    return changelog_file
 
 
 def _unzip_file(path, delete=False):
@@ -141,7 +155,8 @@ def download_file(arch, path="./", channel="stable", package="main", force=False
     """
     url = get_download_url(arch=arch, channel=channel, package=package, scheme=scheme)
     log.debug("Downloading %s to %s", url, path)
-    fullpath = os.path.abspath(path)
+    path = os.path.abspath(path)
+    fullpath = path
     if mirror:
         url_path = urlparse(url).path
 
@@ -151,7 +166,8 @@ def download_file(arch, path="./", channel="stable", package="main", force=False
         fullpath = os.path.join(fullpath, url_path)
 
         # for a mirror, we will also grab the "LATEST" file that tells routers there is an update available
-        _download_latest_info_file(os.path.abspath(path), channel, scheme)
+        _download_latest_info_file(path, channel, scheme)
+        _download_lastest_changelog_file(os.path.dirname(fullpath), channel, scheme)
     else:
         _, extension = os.path.splitext(url)
         if os.path.isdir(fullpath):
